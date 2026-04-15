@@ -1,116 +1,110 @@
-📁 LAN Temporary File & Text Sharing System
+# LAN Share System
 
-A lightweight offline LAN-based sharing system that allows devices to share files and text messages instantly within a temporary session.
-No accounts. No cloud. No internet dependency.
+A lightweight LAN-based file and text sharing system that works entirely offline between devices on the same network.
 
-🚀 Features
-📂 File Sharing
-Upload and download files instantly
-Unique file IDs (no collisions)
-Session-isolated storage
-Automatic cleanup after session ends
-📝 Text Sharing
-Send text messages inside a session
-Instant visibility across connected devices
-One-click copy to clipboard
-Temporary storage (deleted after session ends)
-🔗 Session System
-Create temporary sessions with unique IDs
-Join via URL or QR code
-Multiple devices supported (LAN)
-🔒 Privacy & Ephemeral Design
-No user accounts
-No database required
-Everything is deleted when session ends
-Fully offline capable
-🏗️ Architecture
-Backend: FastAPI
-Server: Uvicorn
-Storage: Temporary filesystem (/tmp)
-State: In-memory session manager
-QR Codes: Python qrcode
-📡 How It Works
-Start the server on one device
-Create a session
-Share QR code or session link
-Other devices join via browser
-Share files or text instantly
-Close session → everything is deleted
-⚙️ Installation
-1. Clone repo
-git clone https://github.com/your-username/lan-share.git
-cd lan-share
-2. Create virtual environment (optional but recommended)
-python -m venv venv
-source venv/bin/activate  # Linux/macOS
-3. Install dependencies
+No accounts. No cloud. No external services.
+
+---
+
+## Overview
+
+This application allows one device to host a temporary session where multiple devices can connect through a local network URL or QR code.
+
+Inside a session, users can:
+- Upload and download files
+- Send and receive text messages
+- Share data instantly across devices
+
+All session data is temporary and is deleted automatically when the session ends.
+
+---
+
+## Features
+
+### File Sharing
+- Upload files to a shared session
+- Download files from any connected device
+- Unique file IDs to prevent conflicts
+- Session-based isolated storage
+
+### Text Sharing
+- Send messages in real time within a session
+- Copy messages with one click
+- Lightweight chat-like communication layer
+
+### Session System
+- Unique session ID generation
+- QR code session sharing
+- Multi-device support over LAN
+- Automatic session cleanup after timeout or shutdown
+
+### Privacy
+- No authentication required
+- No database storage
+- No persistent data after session ends
+
+---
+
+## How It Works
+
+1. Start the server on a host device
+2. Create a session
+3. Share the generated link or QR code
+4. Other devices join the session via browser
+5. Share files or text instantly
+6. End session → all data is permanently deleted
+
+---
+
+## Installation
+
+```bash
+git clone https://github.com/devmoseslabs/LAN_share.git
+cd LAN_share
+
+Install dependencies:
+
 pip install fastapi uvicorn python-multipart qrcode
-▶️ Run the server
+Running the Server
 python main.py
 
 or
 
 uvicorn main:app --host 0.0.0.0 --port 8000
-🌐 Access
+Access
 
 Open in browser:
 
-http://<your-local-ip>:8000
+http://<local-ip>:8000
 
 Example:
 
 http://10.42.0.1:8000
-📱 Creating a Session
-Click Create Session
-Set optional timeout
-Scan QR code or share link
-Start sharing files and text instantly
-🧹 Session Cleanup
+Project Structure
+main.py              Core FastAPI application
+Session Manager      Handles sessions and lifecycle
+File System          Temporary file storage per session
+Message System       In-memory text message handling
+QR Generator         Session sharing via QR code
+Design Principles
+Offline first (LAN only)
+Ephemeral sessions (nothing persists)
+No external dependencies
+Fast local communication
+Minimal system overhead
+Security Model
 
-Sessions are automatically destroyed when:
+This system is designed for trusted local networks only.
 
-Timeout is reached
-Server is stopped
-Session is manually deleted
+No encryption layer by default
+No authentication system
+Not intended for public internet exposure
+Future Improvements
+WebSocket real-time updates
+Device auto-discovery
+End-to-end encryption per session
+Mobile PWA interface
+Persistent optional mode (toggle storage)
+License
 
-All files and messages are permanently removed.
-
-📦 Project Structure
-.
-├── main.py            # FastAPI application
-├── sessions.py        # Session manager logic
-├── files.py           # File handling logic
-├── messages.py       # Text messaging system
-├── templates/        # HTML UI (if separated)
-└── /tmp/             # Temporary session storage
-⚡ Key Design Principles
-Offline-first (no internet dependency)
-Ephemeral data (nothing is permanent)
-LAN optimized
-Minimal dependencies
-Fast and lightweight
-No authentication overhead
-🧠 Why this exists
-
-This project is built to replace:
-
-cloud file sharing tools
-slow USB transfers
-paid messaging/file apps on LAN
-
-It turns any device into a temporary collaboration node.
-
-🔮 Future Improvements
-WebSocket real-time sync
-Drag-and-drop UI upgrade
-Mobile PWA support
-Encryption per session
-Device discovery (auto LAN detection)
-⚠️ Disclaimer
-
-This tool is designed for local network use only.
-Do not expose it to the public internet without adding security layers.
-
-👨‍💻 Author
-
-Built for fast, offline, peer-to-peer style sharing on LAN.
+MIT 
